@@ -1,0 +1,121 @@
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gamepad Web Simulator</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+  }
+  .stick {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1px;
+    text-align: center;
+    font-size: 30px;
+  }
+
+  .gamepad {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .cross {
+    width: 120px;
+    height: 120px;
+    background-color: #ddd;
+    border: 1px solid #999;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .cross_place {
+    width: 120px;
+    height: 120px;
+    background-color: #ddd;
+    border: 1px solid #999;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    visibility: hidden;
+  }
+
+  .button {
+    width: 120px;
+    height: 120px;
+    background-color: #ddd;
+    border: 1px solid #999;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+
+</style>
+</head>
+<body>
+<div class="stick">
+  <div class="cross_place" id="dum">↑</div>
+  <div class="cross" id="up">↑</div>
+  <div class="cross_place" id="dum">↑</div>
+
+  <div class="cross" id="left">←</div>
+  <div class="cross_place" id="dum">←</div>
+  <div class="cross" id="right">→</div>
+
+  <div class="cross_place" id="dum">↓</div>
+  <div class="cross" id="down">↓</div>
+  <div class="cross_place" id="dum">↓</div>
+</div>
+
+<div class="stick">
+  <div class="cross_place" id="dum">↑</div>
+</div>
+  
+
+<div class="gamepad">
+  <div class="button" id="a">A</div>
+  <div class="button" id="b">B</div>
+  
+</div>
+
+<script>
+  const crosses = document.querySelectorAll('.cross');
+  const buttons = document.querySelectorAll('.button');
+
+  initButtons(crosses);
+  initButtons(buttons);
+
+  function initButtons(elements){
+    elements.forEach(element => {
+      element.addEventListener('mousedown', () => {
+        element.style.backgroundColor = '#aaa'; 
+        let command = event.target.id;
+        let id = 1234;
+        let url = `http://localhost:8001/${command}/${id}`
+        console.log(url)
+        fetch(url);
+    });
+
+    element.addEventListener('mouseup', () => {
+      element.style.backgroundColor = '#ddd';
+    });
+  });
+  }
+
+</script>
+</body>

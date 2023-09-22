@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3 uid="uid://qvg4q16blgx5"]
+
+[ext_resource type="Script" path="res://server.gd" id="1_urpfw"]
+[ext_resource type="Script" path="res://websocket/WebSocketServer.gd" id="3_0eqsy"]
+[ext_resource type="PackedScene" uid="uid://c6y2nclowk8mx" path="res://game.tscn" id="3_jak70"]
+
+[node name="Server" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_urpfw")
+
+[node name="WebSocketServer" type="Node" parent="."]
+script = ExtResource("3_0eqsy")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Listen" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Connect" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Host" type="LineEdit" parent="Panel/VBoxContainer/Connect"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ws://localhost:8000/test/"
+placeholder_text = "ws://my.server/path/"
+
+[node name="Port" type="SpinBox" parent="Panel/VBoxContainer/Connect"]
+layout_mode = 2
+min_value = 1.0
+max_value = 65535.0
+value = 8000.0
+
+[node name="Listen" type="Button" parent="Panel/VBoxContainer/Connect"]
+layout_mode = 2
+toggle_mode = true
+text = "Listen"
+
+[node name="Send" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Game" parent="." instance=ExtResource("3_jak70")]
+visible = false
+
+[connection signal="client_connected" from="WebSocketServer" to="." method="_on_web_socket_server_client_connected"]
+[connection signal="client_disconnected" from="WebSocketServer" to="." method="_on_web_socket_server_client_disconnected"]
+[connection signal="message_received" from="WebSocketServer" to="." method="_on_web_socket_server_message_received"]
+[connection signal="toggled" from="Panel/VBoxContainer/Connect/Listen" to="." method="_on_listen_toggled"]
