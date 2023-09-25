@@ -7,11 +7,11 @@ func _ready():
 
 func send_command(command):
 	if command == "up":
-		position.y -= 10 
+		position.y -= 5 
 	if command == "down":
-		position.y += 10 
+		position.y += 5 
 	
 	if command == "left":
-		position.x -= 10 
+		position.x -= 5 
 	if command == "right":
-		position.x += 10 
+		position.x += 5 
