@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3d374lwqxyxk"]
+
+[ext_resource type="Texture2D" uid="uid://cni6a31njr2a8" path="res://sprites/lava_splash_spr_1.png" id="1_hxbn5"]
+[ext_resource type="Script" path="res://bullet.gd" id="1_s5tpi"]
+[ext_resource type="Texture2D" uid="uid://ccndxbapvqixa" path="res://sprites/lava_splash_spr_2.png" id="2_y5rir"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7ksej"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hxbn5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_y5rir")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="bullet" type="Node2D"]
+script = ExtResource("1_s5tpi")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7ksej")

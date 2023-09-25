@@ -1,13 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwrd4qpshwym8"]
+[gd_scene load_steps=7 format=3 uid="uid://dwrd4qpshwym8"]
 
 [ext_resource type="Texture2D" uid="uid://cmjslosg8uj34" path="res://sprites/player_spr_0.png" id="1_ouk3y"]
 [ext_resource type="Script" path="res://player.gd" id="1_t1qp0"]
+[ext_resource type="Texture2D" uid="uid://hvhcm2kibo5p" path="res://sprites/player_spr_1.png" id="3_djt5c"]
+[ext_resource type="Texture2D" uid="uid://bo61mw1xbh015" path="res://sprites/player_spr_2.png" id="4_rlfpi"]
+[ext_resource type="Texture2D" uid="uid://co1ocoba0aetk" path="res://sprites/player_spr_3.png" id="5_dg1sj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_umsmd"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_ouk3y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_djt5c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_rlfpi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dg1sj")
 }],
 "loop": true,
 "name": &"default",

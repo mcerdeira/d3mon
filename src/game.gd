@@ -7,7 +7,13 @@ func send_command(peer_id, message):
 	var command = msg[1]
 	var player = add_player(id)
 	if player:
-		player.send_command(command)
+		if is_direction(command):
+			player.send_command(command)
+		else:
+			player.send_action()
+			
+func is_direction(command):
+	return command == "none" or command == "up" or command == "down" or command == "left" or command == "right" or command == "end"
 
 func remove_player(id):
 	var player = find_player_by_id(id)
