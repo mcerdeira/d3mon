@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {Button} from './components/Button';
 import {PlaceHolder} from './components/PlaceHolder';
 import { TouchPad } from './components/TouchPad';
