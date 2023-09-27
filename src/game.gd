@@ -1,5 +1,26 @@
 extends Node2D
 var player_obj = preload("res://player.tscn")
+var local_player = false
+
+func _physics_process(delta):
+	if !local_player:
+		if Input.is_action_just_pressed("shoot"):
+			local_player = true
+			send_command(0, "1:a")
+	else:
+		if Input.is_action_pressed("shoot"):
+			send_command(0, "1:a") 
+		if Input.is_action_pressed("down"):
+			send_command(0, "1:down") 
+		if Input.is_action_pressed("up"):
+			send_command(0, "1:up") 
+		if Input.is_action_pressed("left"):
+			send_command(0, "1:left") 
+		if Input.is_action_pressed("right"):
+			send_command(0, "1:right") 
+			
+		if Input.is_action_just_released("down") or Input.is_action_just_released("up") or Input.is_action_just_released("left") or Input.is_action_just_released("right"):
+			send_command(0, "1:end") 
 
 func send_command(peer_id, message):
 	var msg = message.rsplit(":")

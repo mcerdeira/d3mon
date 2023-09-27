@@ -1,4 +1,4 @@
-res://server.tscn
-res://game.tscn
-res://player.tscn
 res://bullet.tscn
+res://server.tscn
+res://player.tscn
+res://game.gd

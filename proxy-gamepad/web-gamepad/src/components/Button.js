@@ -12,7 +12,7 @@ export const Button = (props) => {
     e.target.style.backgroundColor = '#FF0000';
     let command = e.target.id;
     let id = props.playerid;
-    let url = `http://192.168.0.17:8001/${command}/${id}`
+    let url = `http://192.168.0.18:8001/${command}/${id}`
     console.log(url)
     try {
       fetch(url);
