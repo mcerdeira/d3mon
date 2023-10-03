@@ -12,13 +12,13 @@ config_version=5
 
 config/name="d3Mons"
 config/description="This is a demo of a simple chat implemented using WebSockets, showing both how to host a websocket server from Godot and how to connect to it."
+config/tags=PackedStringArray("demo", "network", "official")
 run/main_scene="res://server.tscn"
-config/features=PackedStringArray("4.0")
+config/features=PackedStringArray("4.1")
 boot_splash/show_image=false
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 config/icon="res://icon.webp"
-config/tags=PackedStringArray("demo", "network", "official")
 
 [display]
 
