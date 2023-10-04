@@ -20,7 +20,7 @@ export const TouchPad = (props) => {
                 startTime,
                 mouseisdown = false,
                 detecttouch = !!('ontouchstart' in window) || !!('ontouchstart' in document.documentElement) || !!window.ontouchstart || !!window.Touch || !!window.onmsgesturechange || (window.DocumentTouch && window.document instanceof window.DocumentTouch),
-                handletouch = callback || function(evt, dir, phase, swipetype, distance){}
+                handletouch = callback || function(evt, dir, phase, swipetype, distance, deg){}
     
         touchsurface.addEventListener('touchstart', function(e){
             var touchobj = e.changedTouches[0]
@@ -30,7 +30,7 @@ export const TouchPad = (props) => {
             startX = touchobj.pageX
             startY = touchobj.pageY
             startTime = new Date().getTime() // record time when finger first makes contact with surface
-            handletouch(e, 'none', 'start', swipeType, 0) // fire callback function with params dir="none", phase="start", swipetype="none" etc
+            handletouch(e, 'none', 'start', swipeType, 0, -1) // fire callback function with params dir="none", phase="start", swipetype="none" etc
             e.preventDefault()
         
         }, false)
@@ -41,11 +41,11 @@ export const TouchPad = (props) => {
             distY = touchobj.pageY - startY // get vertical dist traveled by finger while in contact with surface
             if (Math.abs(distX) > Math.abs(distY)){ // if distance traveled horizontally is greater than vertically, consider this a horizontal movement
                 dir = (distX < 0)? 'left' : 'right'
-                handletouch(e, dir, 'move', swipeType, distX) // fire callback function with params dir="left|right", phase="move", swipetype="none" etc
+                handletouch(e, dir, 'move', swipeType, distX, -1) // fire callback function with params dir="left|right", phase="move", swipetype="none" etc
             }
             else{ // else consider this a vertical movement
                 dir = (distY < 0)? 'up' : 'down'
-                handletouch(e, dir, 'move', swipeType, distY) // fire callback function with params dir="up|down", phase="move", swipetype="none" etc
+                handletouch(e, dir, 'move', swipeType, distY, -1) // fire callback function with params dir="up|down", phase="move", swipetype="none" etc
             }
             e.preventDefault() // prevent scrolling when inside DIV
         }, false)
@@ -62,7 +62,7 @@ export const TouchPad = (props) => {
                 }
             }
             // fire callback function with params dir="left|right|up|down", phase="end", swipetype=dir etc:
-            handletouch(e, dir, 'end', swipeType, (dir =='left' || dir =='right')? distX : distY)
+            handletouch(e, dir, 'end', swipeType, (dir =='left' || dir =='right')? distX : distY, -1)
             e.preventDefault()
         }, false)
         
@@ -74,7 +74,7 @@ export const TouchPad = (props) => {
             startX = touchobj.pageX
             startY = touchobj.pageY
             startTime = new Date().getTime() // record time when finger first makes contact with surface
-            handletouch(e, 'none', 'start', swipeType, 0) // fire callback function with params dir="none", phase="start", swipetype="none" etc
+            handletouch(e, 'none', 'start', swipeType, 0, -1) // fire callback function with params dir="none", phase="start", swipetype="none" etc
             mouseisdown = true
             e.preventDefault()
         
@@ -83,15 +83,31 @@ export const TouchPad = (props) => {
         document.body.addEventListener('mousemove', function(e){
             if (mouseisdown){
                 var touchobj = e
+
+                function getPosition() {
+                    return { w: window.innerWidth / 2.3, h: window.innerHeight / 2.3 };
+                }
+                let {w, h} = getPosition();
+                let x = e.clientX;
+                let y = e.clientY;
+                console.log({x, y});
+                let deltaX = w - x;
+                let deltaY = h - y;
+                let rad = Math.atan2(deltaY, deltaX);
+                let deg = Math.round(rad * (180 / Math.PI));
+                if(deg <= 0) {
+                   deg = (deg + 360) % 360;  
+                }
+
                 distX = touchobj.pageX - startX // get horizontal dist traveled by finger while in contact with surface
                 distY = touchobj.pageY - startY // get vertical dist traveled by finger while in contact with surface
                 if (Math.abs(distX) > Math.abs(distY)){ // if distance traveled horizontally is greater than vertically, consider this a horizontal movement
                     dir = (distX < 0)? 'left' : 'right'
-                    handletouch(e, dir, 'move', swipeType, distX) // fire callback function with params dir="left|right", phase="move", swipetype="none" etc
+                    handletouch(e, dir, 'move', swipeType, distX, deg) // fire callback function with params dir="left|right", phase="move", swipetype="none" etc
                 }
                 else{ // else consider this a vertical movement
                     dir = (distY < 0)? 'up' : 'down'
-                    handletouch(e, dir, 'move', swipeType, distY) // fire callback function with params dir="up|down", phase="move", swipetype="none" etc
+                    handletouch(e, dir, 'move', swipeType, distY, deg) // fire callback function with params dir="up|down", phase="move", swipetype="none" etc
                 }
                 e.preventDefault() // prevent scrolling when inside DIV
             }
@@ -110,7 +126,7 @@ export const TouchPad = (props) => {
                     }
                 }
                 // fire callback function with params dir="left|right|up|down", phase="end", swipetype=dir etc:
-                handletouch(e, dir, 'end', swipeType, (dir =='left' || dir =='right')? distX : distY)
+                handletouch(e, dir, 'end', swipeType, (dir =='left' || dir =='right')? distX : distY, -1)
                 mouseisdown = false
                 e.preventDefault()
             }
@@ -120,10 +136,11 @@ export const TouchPad = (props) => {
     useEffect(()=>{
 
         var el = document.getElementById('touchsurface')
-        ontouch(el, function(e, dir, phase, swipetype, distance){
+        ontouch(el, function(e, dir, phase, swipetype, distance, deg){
             var touchreport = ''
             touchreport += '<b>Dir:</b> ' + dir + '<br />'
             touchreport += '<b>Phase:</b> ' + phase + '<br />'
+            touchreport += '<b>Deg:</b> ' + deg + '<br />'
             el.innerHTML = touchreport
 
             let app = document.getElementById("App");
@@ -136,9 +153,8 @@ export const TouchPad = (props) => {
 
             let id = props.playerid;
             let url = `http://${process.env.REACT_APP_LOCAL_IP}:8001/${command}/${id}`
-            console.log(url)
             try {
-              fetch(url);
+              //fetch(url);
             } catch (error) {
               return 0;
             }
