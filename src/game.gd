@@ -26,10 +26,19 @@ func send_command(peer_id, message):
 	var msg = message.rsplit(":")
 	var id = msg[0]
 	var command = msg[1]
+	var is_dir = is_direction(command)
 	var player = add_player(id)
+	var x = null
+	var y = null
+	
+	if is_dir:
+		if command != "end" and command != "none":
+			x = msg[2]
+			y = msg[3]
+		
 	if player:
-		if is_direction(command):
-			player.send_command(command)
+		if is_dir:
+			player.send_command(command, x, y)
 		else:
 			player.send_action()
 			

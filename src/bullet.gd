@@ -1,14 +1,15 @@
 extends CharacterBody2D
-var dir = ""
+var dir = null
 var speed_max = 1500.0
 var speed = 500
 var motion = Vector2()
 var target = null
 
 func _ready():
-	print(get_global_mouse_position())
-	target = (get_global_mouse_position() - self.global_position).normalized()
-	print(target)
+	if dir == null:
+		dir = Vector2(0, 0)
+
+	target = (dir - self.global_position).normalized() #(get_global_mouse_position() - self.global_position).normalized()
 	velocity = target * speed
 	$sprite.play("default")
 

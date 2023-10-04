@@ -37,15 +37,18 @@ export const TouchPad = (props) => {
     
         touchsurface.addEventListener('touchmove', function(e){
             var touchobj = e.changedTouches[0]
+
+            let deg = {x: Math.round(touchobj.pageX), y: Math.round(touchobj.pageY)};
+
             distX = touchobj.pageX - startX // get horizontal dist traveled by finger while in contact with surface
             distY = touchobj.pageY - startY // get vertical dist traveled by finger while in contact with surface
             if (Math.abs(distX) > Math.abs(distY)){ // if distance traveled horizontally is greater than vertically, consider this a horizontal movement
                 dir = (distX < 0)? 'left' : 'right'
-                handletouch(e, dir, 'move', swipeType, distX, -1) // fire callback function with params dir="left|right", phase="move", swipetype="none" etc
+                handletouch(e, dir, 'move', swipeType, distX, deg) // fire callback function with params dir="left|right", phase="move", swipetype="none" etc
             }
             else{ // else consider this a vertical movement
                 dir = (distY < 0)? 'up' : 'down'
-                handletouch(e, dir, 'move', swipeType, distY, -1) // fire callback function with params dir="up|down", phase="move", swipetype="none" etc
+                handletouch(e, dir, 'move', swipeType, distY, deg) // fire callback function with params dir="up|down", phase="move", swipetype="none" etc
             }
             e.preventDefault() // prevent scrolling when inside DIV
         }, false)
@@ -140,13 +143,12 @@ export const TouchPad = (props) => {
             var touchreport = ''
             touchreport += '<b>Dir:</b> ' + dir + '<br />'
             touchreport += '<b>Phase:</b> ' + phase + '<br />'
-            touchreport += '<b>Deg:</b> ' + deg + '<br />'
             el.innerHTML = touchreport
 
             let app = document.getElementById("App");
             //app.requestFullscreen();
             e.target.style.backgroundColor = '#aaa';
-            let command = dir;
+            let command = `${dir}:${deg.x}:${deg.y}`;
             if (phase == "end"){
                 command = "end"
             }
@@ -154,7 +156,7 @@ export const TouchPad = (props) => {
             let id = props.playerid;
             let url = `http://${process.env.REACT_APP_LOCAL_IP}:8001/${command}/${id}`
             try {
-              //fetch(url);
+              fetch(url);
             } catch (error) {
               return 0;
             }

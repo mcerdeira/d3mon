@@ -10,8 +10,10 @@ export const Button = (props) => {
     } catch (exceptionVar) {
     }
     e.target.style.backgroundColor = '#FF0000';
+
     let command = e.target.id;
     let id = props.playerid;
+
     let url = `http://${process.env.REACT_APP_LOCAL_IP}:8001/${command}/${id}`
     console.log(url)
     try {
