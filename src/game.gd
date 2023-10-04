@@ -26,24 +26,20 @@ func send_command(peer_id, message):
 	var msg = message.rsplit(":")
 	var id = msg[0]
 	var command = msg[1]
+	if command == "none":
+		command = "end"
+		
 	var is_dir = is_direction(command)
 	var player = add_player(id)
-	var x = null
-	var y = null
-	
-	if is_dir:
-		if command != "end" and command != "none":
-			x = msg[2]
-			y = msg[3]
 		
 	if player:
 		if is_dir:
-			player.send_command(command, x, y)
+			player.send_command(command)
 		else:
 			player.send_action()
 			
 func is_direction(command):
-	return command == "none" or command == "up" or command == "down" or command == "left" or command == "right" or command == "end"
+	return command == "none" or command == "up" or command == "down" or command == "left" or command == "right" or command == "end" or command == "leftup" or command == "leftdown" or command == "rightdown" or command == "rightup"
 
 func remove_player(id):
 	var player = find_player_by_id(id)

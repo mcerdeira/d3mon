@@ -6,24 +6,19 @@ var last_dir = "right"
 var bullet_obj = preload("res://bullet.tscn")
 var speed = 100.0
 var ttl = 0
-var target = null
 
 func _ready():
 	add_to_group("players")
 
-func send_command(command, _x=null, _y=null):
+func send_command(command):
 	player_command = command
-	if _x and _y:
-		target = Vector2(int(_x), int(_y))
-	else:
-		target = null
 	
 func send_action():
 	if ttl <= 0:
 		ttl = 0.2
 		var bullet = bullet_obj.instantiate()
 		bullet.global_position =  $shoot_pos.global_position
-		bullet.dir = target
+		bullet.player_command = last_dir
 		get_parent().add_child(bullet)
 		
 func _physics_process(delta):
@@ -36,18 +31,40 @@ func _physics_process(delta):
 #	move_and_slide()
 	
 	var is_moving = (player_command != "end")
+	
+	if player_command == "leftup":
+		last_dir = player_command 
+		position.y -= speed * delta
+		position.x -= speed * delta
+		$sprite.scale.x = -1
+	if player_command == "rightup":
+		last_dir = player_command 
+		position.y -= speed * delta
+		position.x += speed * delta
+		$sprite.scale.x = 1
+	if player_command == "leftdown":
+		last_dir = player_command
+		position.y += speed * delta
+		position.x -= speed * delta
+		$sprite.scale.x = -1
+	if player_command == "rightdown":
+		last_dir = player_command
+		position.y += speed * delta
+		position.x += speed * delta
+		$sprite.scale.x = 1
+	
 	if player_command == "up":
-		last_dir = "up"
+		last_dir = player_command
 		position.y -= speed * delta
 	if player_command == "down":
-		last_dir = "down"
+		last_dir = player_command
 		position.y += speed * delta
 	if player_command == "left":
-		last_dir = "left"
+		last_dir = player_command
 		position.x -= speed * delta
 		$sprite.scale.x = -1
 	if player_command == "right":
-		last_dir = "right"
+		last_dir = player_command
 		position.x += speed * delta
 		$sprite.scale.x = 1
 		

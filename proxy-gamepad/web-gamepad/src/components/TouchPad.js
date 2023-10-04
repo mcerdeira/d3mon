@@ -20,7 +20,7 @@ export const TouchPad = (props) => {
                 startTime,
                 mouseisdown = false,
                 detecttouch = !!('ontouchstart' in window) || !!('ontouchstart' in document.documentElement) || !!window.ontouchstart || !!window.Touch || !!window.onmsgesturechange || (window.DocumentTouch && window.document instanceof window.DocumentTouch),
-                handletouch = callback || function(evt, dir, phase, swipetype, distance, deg){}
+                handletouch = callback || function(evt, dir, phase, swipetype, distance){}
     
         touchsurface.addEventListener('touchstart', function(e){
             var touchobj = e.changedTouches[0]
@@ -37,19 +37,19 @@ export const TouchPad = (props) => {
     
         touchsurface.addEventListener('touchmove', function(e){
             var touchobj = e.changedTouches[0]
-
-            let deg = {x: Math.round(touchobj.pageX), y: Math.round(touchobj.pageY)};
-
             distX = touchobj.pageX - startX // get horizontal dist traveled by finger while in contact with surface
             distY = touchobj.pageY - startY // get vertical dist traveled by finger while in contact with surface
-            if (Math.abs(distX) > Math.abs(distY)){ // if distance traveled horizontally is greater than vertically, consider this a horizontal movement
-                dir = (distX < 0)? 'left' : 'right'
-                handletouch(e, dir, 'move', swipeType, distX, deg) // fire callback function with params dir="left|right", phase="move", swipetype="none" etc
+            let dirH = "";
+            let dirV = "";
+            
+            if (Math.abs(distX) > 45){ 
+                dirH = (distX < 0)? 'left' : 'right'
             }
-            else{ // else consider this a vertical movement
-                dir = (distY < 0)? 'up' : 'down'
-                handletouch(e, dir, 'move', swipeType, distY, deg) // fire callback function with params dir="up|down", phase="move", swipetype="none" etc
+            if (Math.abs(distY) > 70){ 
+                dirV = (distY < 0)? 'up' : 'down'
             }
+            dir = dirH + dirV;
+            handletouch(e, dir, 'move', swipeType, distY);
             e.preventDefault() // prevent scrolling when inside DIV
         }, false)
     
@@ -86,32 +86,20 @@ export const TouchPad = (props) => {
         document.body.addEventListener('mousemove', function(e){
             if (mouseisdown){
                 var touchobj = e
-
-                function getPosition() {
-                    return { w: window.innerWidth / 2.3, h: window.innerHeight / 2.3 };
-                }
-                let {w, h} = getPosition();
-                let x = e.clientX;
-                let y = e.clientY;
-                console.log({x, y});
-                let deltaX = w - x;
-                let deltaY = h - y;
-                let rad = Math.atan2(deltaY, deltaX);
-                let deg = Math.round(rad * (180 / Math.PI));
-                if(deg <= 0) {
-                   deg = (deg + 360) % 360;  
-                }
+                let dirH = "";
+                let dirV = "";
 
                 distX = touchobj.pageX - startX // get horizontal dist traveled by finger while in contact with surface
                 distY = touchobj.pageY - startY // get vertical dist traveled by finger while in contact with surface
-                if (Math.abs(distX) > Math.abs(distY)){ // if distance traveled horizontally is greater than vertically, consider this a horizontal movement
-                    dir = (distX < 0)? 'left' : 'right'
-                    handletouch(e, dir, 'move', swipeType, distX, deg) // fire callback function with params dir="left|right", phase="move", swipetype="none" etc
+                
+                if (Math.abs(distX) > 45){ 
+                    dirH = (distX < 0)? 'left' : 'right'
                 }
-                else{ // else consider this a vertical movement
-                    dir = (distY < 0)? 'up' : 'down'
-                    handletouch(e, dir, 'move', swipeType, distY, deg) // fire callback function with params dir="up|down", phase="move", swipetype="none" etc
+                if (Math.abs(distY) > 70){ 
+                    dirV = (distY < 0)? 'up' : 'down'
                 }
+                dir = dirH + dirV;
+                handletouch(e, dir, 'move', swipeType, distY);
                 e.preventDefault() // prevent scrolling when inside DIV
             }
         }, false)
@@ -139,7 +127,7 @@ export const TouchPad = (props) => {
     useEffect(()=>{
 
         var el = document.getElementById('touchsurface')
-        ontouch(el, function(e, dir, phase, swipetype, distance, deg){
+        ontouch(el, function(e, dir, phase, swipetype, distance){
             var touchreport = ''
             touchreport += '<b>Dir:</b> ' + dir + '<br />'
             touchreport += '<b>Phase:</b> ' + phase + '<br />'
@@ -148,7 +136,7 @@ export const TouchPad = (props) => {
             let app = document.getElementById("App");
             //app.requestFullscreen();
             e.target.style.backgroundColor = '#aaa';
-            let command = `${dir}:${deg.x}:${deg.y}`;
+            let command = dir;
             if (phase == "end"){
                 command = "end"
             }
@@ -160,9 +148,6 @@ export const TouchPad = (props) => {
             } catch (error) {
               return 0;
             }
-
-
-
         })
         }, [])
 
