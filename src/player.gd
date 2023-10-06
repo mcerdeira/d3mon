@@ -15,11 +15,18 @@ func send_command(command):
 	
 func send_action():
 	if ttl <= 0:
-		ttl = 0.2
-		var bullet = bullet_obj.instantiate()
-		bullet.global_position =  $shoot_pos.global_position
-		bullet.player_command = last_dir
-		get_parent().add_child(bullet)
+		ttl = 0.1
+		var bullet = null
+		var ttls = [0.4, 0.3, 0.3]
+		var framos = [1, 0, 0]
+		for i in range(3):
+			bullet = bullet_obj.instantiate()
+			bullet.global_position =  $shoot_pos.global_position
+			bullet.player_command = last_dir
+			bullet.ttl = ttls[i]
+			bullet.desv = i
+			bullet.framo = framos[i]
+			get_parent().add_child(bullet)
 		
 func _physics_process(delta):
 	ttl -= 1 * delta
@@ -46,6 +53,7 @@ func _physics_process(delta):
 		last_dir = player_command
 		position.y += speed * delta
 		position.x -= speed * delta
+		
 		$sprite.scale.x = -1
 	if player_command == "rightdown":
 		last_dir = player_command

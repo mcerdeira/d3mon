@@ -33,4 +33,3 @@ script = ExtResource("1_t1qp0")
 sprite_frames = SubResource("SpriteFrames_umsmd")
 
 [node name="shoot_pos" type="Marker2D" parent="."]
-position = Vector2(27, 0)
