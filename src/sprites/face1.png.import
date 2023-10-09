@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmjslosg8uj34"
-path="res://.godot/imported/player_spr_0.png-62b31eed47403d545afbd61f97f65f5c.ctex"
+uid="uid://b6j0nt6g82prn"
+path="res://.godot/imported/face1.png-4f541b1a86b50d0116079553b0eac720.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/player_spr_0.png"
-dest_files=["res://.godot/imported/player_spr_0.png-62b31eed47403d545afbd61f97f65f5c.ctex"]
+source_file="res://sprites/face1.png"
+dest_files=["res://.godot/imported/face1.png-4f541b1a86b50d0116079553b0eac720.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

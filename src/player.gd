@@ -6,9 +6,21 @@ var last_dir = "right"
 var bullet_obj = preload("res://bullet.tscn")
 var speed = 100.0
 var ttl = 0
+var current_color = null
 
 func _ready():
 	add_to_group("players")
+	randomize()
+	current_color = Color(randf(), randf(), randf())
+	$sprite.material.set_shader_parameter("new", current_color)
+	$hat.material.set_shader_parameter("new", current_color)
+	set_random_frame($face)
+	set_random_frame($hat)
+	
+func set_random_frame(sprite):
+	randomize()
+	var f = randi() % sprite.get_sprite_frames().get_frame_count("default")
+	sprite.frame = f
 
 func send_command(command):
 	player_command = command
@@ -43,23 +55,23 @@ func _physics_process(delta):
 		last_dir = player_command 
 		position.y -= speed * delta
 		position.x -= speed * delta
-		$sprite.scale.x = -1
+		scale.x = -1
 	if player_command == "rightup":
 		last_dir = player_command 
 		position.y -= speed * delta
 		position.x += speed * delta
-		$sprite.scale.x = 1
+		scale.x = 1
 	if player_command == "leftdown":
 		last_dir = player_command
 		position.y += speed * delta
 		position.x -= speed * delta
 		
-		$sprite.scale.x = -1
+		scale.x = -1
 	if player_command == "rightdown":
 		last_dir = player_command
 		position.y += speed * delta
 		position.x += speed * delta
-		$sprite.scale.x = 1
+		scale.x = 1
 	
 	if player_command == "up":
 		last_dir = player_command
@@ -70,11 +82,11 @@ func _physics_process(delta):
 	if player_command == "left":
 		last_dir = player_command
 		position.x -= speed * delta
-		$sprite.scale.x = -1
+		scale.x = -1
 	if player_command == "right":
 		last_dir = player_command
 		position.x += speed * delta
-		$sprite.scale.x = 1
+		scale.x = 1
 		
 	if is_moving:
 		$sprite.play("default")

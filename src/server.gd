@@ -5,6 +5,9 @@ extends Control
 @onready var _line_edit = $Panel/VBoxContainer/Send/LineEdit
 @onready var _listen_port = $Panel/VBoxContainer/Connect/Port
 
+func _ready():
+	_on_listen_toggled(true)
+
 func info(msg):
 	print(msg)
 	_log_dest.add_text(str(msg) + "\n")

@@ -42,7 +42,7 @@ func _physics_process(delta):
 		if desv == 1:
 			position.y += speed / divisor * delta
 		if desv == 2:
-			position.y -= speed / divisor * delta		
+			position.y -= speed / divisor * delta
 	if player_command == "rightdown":
 		position.y += speed * delta
 		position.x += speed * delta
