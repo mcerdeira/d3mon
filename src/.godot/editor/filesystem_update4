@@ -1,8 +1,7 @@
-res://bullet.tscn
-res://bullet.gd
-res://game.tscn
 res://server.tscn
-res://player.tscn
 res://player.gdshader
 res://player.gd
-res://server.gd
+res://game.gd
+res://player.tscn
+res://bullet.tscn
+res://game.tscn

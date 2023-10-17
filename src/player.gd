@@ -7,6 +7,8 @@ var bullet_obj = preload("res://bullet.tscn")
 var speed = 100.0
 var ttl = 0
 var current_color = null
+var my_name = ""
+var is_named = false
 
 func _ready():
 	add_to_group("players")
@@ -41,6 +43,10 @@ func send_action():
 			get_parent().add_child(bullet)
 		
 func _physics_process(delta):
+	if !is_named:
+		is_named = true
+		$lbl_name.text = my_name
+	
 	ttl -= 1 * delta
 #
 #	target = (get_global_mouse_position() - self.global_position).normalized()
@@ -87,7 +93,9 @@ func _physics_process(delta):
 		last_dir = player_command
 		position.x += speed * delta
 		scale.x = 1
-		
+	
+	$lbl_name.scale.x = scale.x
+			
 	if is_moving:
 		$sprite.play("default")
 	else:

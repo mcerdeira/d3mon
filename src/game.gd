@@ -6,7 +6,7 @@ func _physics_process(delta):
 	if !local_player:
 		if Input.is_action_just_pressed("shoot"):
 			local_player = true
-			send_command(0, "1:a")
+			send_command(0, "1|Local_Player:join")
 	else:
 		if Input.is_action_pressed("shoot"):
 			send_command(0, "1:a") 
@@ -25,12 +25,19 @@ func _physics_process(delta):
 func send_command(peer_id, message):
 	var msg = message.rsplit(":")
 	var id = msg[0]
+	var my_name = ""
 	var command = msg[1]
 	if command == "none":
 		command = "end"
 		
+	if command == "join":
+		var msg2 = id.rsplit("|")
+		id = msg2[0]
+		command = "end"
+		my_name = msg2[1]
+
 	var is_dir = is_direction(command)
-	var player = add_player(id)
+	var player = add_player(id, my_name)
 		
 	if player:
 		if is_dir:
@@ -46,13 +53,14 @@ func remove_player(id):
 	if player:
 		player.queue_free()
 	
-func add_player(id):
+func add_player(id, my_name):
 	var player = find_player_by_id(id)
 	if !player:
 		player = player_obj.instantiate()
 		player.position.x = 600
 		player.position.y = 300
 		player.player_id = id
+		player.my_name = my_name
 		add_child(player)
 		
 	return player

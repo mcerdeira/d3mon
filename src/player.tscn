@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dwrd4qpshwym8"]
+[gd_scene load_steps=23 format=3 uid="uid://dwrd4qpshwym8"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_t1qp0"]
 [ext_resource type="Shader" path="res://player.gdshader" id="2_32ye7"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://djb8ncksqepij" path="res://sprites/hats3.png" id="12_oxcou"]
 [ext_resource type="Texture2D" uid="uid://bly8te4xtuu16" path="res://sprites/hats4.png" id="13_djvwi"]
 [ext_resource type="Texture2D" uid="uid://dywdm4b33jtgb" path="res://sprites/hats5.png" id="14_q4f8l"]
+[ext_resource type="FontFile" uid="uid://cqp5o2vpb07yg" path="res://fonts/prstartk.ttf" id="16_jvu40"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8yfef"]
 resource_local_to_scene = true
@@ -115,3 +116,14 @@ frame = 3
 
 [node name="shoot_pos" type="Marker2D" parent="."]
 position = Vector2(6, 14)
+
+[node name="lbl_name" type="Label" parent="."]
+offset_left = -91.0
+offset_top = -59.0
+offset_right = 91.0
+offset_bottom = -40.0
+pivot_offset = Vector2(91, 7)
+theme_override_colors/font_color = Color(100, 0, 0, 1)
+theme_override_fonts/font = ExtResource("16_jvu40")
+text = "....."
+horizontal_alignment = 1

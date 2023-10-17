@@ -67,3 +67,35 @@ body {
   align-items: center;
   cursor: pointer;
 }
+
+.join_button {
+  width: 180px;
+  height: 180px;
+  background-color: #ddd;
+  border: 1px solid #999;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.join_input {
+  width: 200px;
+  height: 40px;
+  background-color: #ddd;
+  border: 1px solid #999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rotation_label{
+  font-size: 100px;
+  color: crimson;
+  width: 500px;
+  height: 500px;
+  background-color: #282c34;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
