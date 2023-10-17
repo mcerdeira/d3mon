@@ -11,6 +11,16 @@ function App() {
     );
   }
 
+  function login_fn() {
+    let name = document.querySelector("#name_input").value;
+    if (name) {
+      setloggedIn(true);
+      setnameSelected(name);
+    }
+  }
+
+  const [loggedIn, setloggedIn] = useState(false);
+  const [nameSelected, setnameSelected] = useState("");
   const [playerid, setplayerid] = useState(uuidv4());
   //const [accel, setaccel] = useState();
 
@@ -26,12 +36,23 @@ function App() {
 
   return (
     <div id = "App" className="App">
-      <div className='center'>{playerid}</div>
+      {loggedIn
+        ?
       <body>
-        <TouchPad className="button" playerid={playerid}></TouchPad>
+        <div className='center'>{playerid}</div>
+        <div className='center'>{nameSelected}</div>
+        <TouchPad className="button" playerid={playerid} nameselected={nameSelected}></TouchPad>
         <PlaceHolder className="cross_place" id="dum" name="↑"/>
-        <Button className="button" id="a" playerid={playerid} name="!"/>
+        <Button className="button" id="a" playerid={playerid} nameselected={nameSelected} name="!"/>
+        <div></div>
       </body>
+      :
+      <body>
+        <label for="name_input">{nameSelected}</label><br></br>
+        <input id="name_input"></input>
+        <input type="submit" value="JOIN" onClick={login_fn}></input>
+      </body>
+      }
     </div>
   );
 }

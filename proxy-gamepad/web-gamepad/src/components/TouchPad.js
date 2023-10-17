@@ -142,7 +142,8 @@ export const TouchPad = (props) => {
             }
 
             let id = props.playerid;
-            let url = `http://${process.env.REACT_APP_LOCAL_IP}:8001/${command}/${id}`
+            let name = props.nameSelected;
+            let url = `http://${process.env.REACT_APP_LOCAL_IP}:8001/${command}/${id}/${name}`
             try {
               fetch(url);
             } catch (error) {
