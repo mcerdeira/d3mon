@@ -1,7 +1,10 @@
 res://server.tscn
 res://player.gdshader
-res://player.gd
-res://game.gd
 res://player.tscn
 res://bullet.tscn
 res://game.tscn
+res://spawner.tscn
+res://spawner.gd
+res://Blood.gd
+res://Blood.tscn
+res://Blood2.tscn

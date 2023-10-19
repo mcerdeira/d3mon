@@ -1,0 +1,79 @@
+[gd_scene load_steps=15 format=3 uid="uid://cxmntby7drvc6"]
+
+[ext_resource type="Texture2D" uid="uid://dju8c43n8olr6" path="res://sprites/spawner3.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://dlqvf6wjbr1oj" path="res://sprites/spawner1.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://ykqvrseshkcp" path="res://sprites/spawner5.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://d3i6hm23u4w2s" path="res://sprites/spawner2.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://d1b7lrgkcqgn7" path="res://sprites/spawner6.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://buist26qlpoyn" path="res://sprites/spawner4.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://qresjsjls30q" path="res://sprites/spawner8.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://bb520axuyadkv" path="res://sprites/spawner11.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://n4r8ku4aau1k" path="res://sprites/spawner9.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://cvp00fog642nu" path="res://sprites/spawner10.png" id="10"]
+[ext_resource type="Texture2D" uid="uid://dhm1c6wyeu2cq" path="res://sprites/spawner7.png" id="11"]
+[ext_resource type="Texture2D" uid="uid://p4gs8u65k8j6" path="res://sprites/spawner12.png" id="12"]
+[ext_resource type="Script" path="res://spawner.gd" id="13"]
+
+[sub_resource type="SpriteFrames" id="1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="spawner" type="AnimatedSprite2D"]
+position = Vector2(0, 135)
+sprite_frames = SubResource("1")
+speed_scale = 5.0
+script = ExtResource("13")
+
+[connection signal="animation_looped" from="." to="." method="_on_animation_looped"]
