@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dwrd4qpshwym8"]
+[gd_scene load_steps=36 format=3 uid="uid://dwrd4qpshwym8"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_t1qp0"]
 [ext_resource type="Shader" path="res://player.gdshader" id="2_32ye7"]
@@ -16,6 +16,18 @@
 [ext_resource type="Texture2D" uid="uid://bly8te4xtuu16" path="res://sprites/hats4.png" id="13_djvwi"]
 [ext_resource type="Texture2D" uid="uid://dywdm4b33jtgb" path="res://sprites/hats5.png" id="14_q4f8l"]
 [ext_resource type="FontFile" uid="uid://cqp5o2vpb07yg" path="res://fonts/prstartk.ttf" id="16_jvu40"]
+[ext_resource type="Texture2D" uid="uid://dlqvf6wjbr1oj" path="res://sprites/spawner1.png" id="17_ara4c"]
+[ext_resource type="Texture2D" uid="uid://d3i6hm23u4w2s" path="res://sprites/spawner2.png" id="18_axmcw"]
+[ext_resource type="Texture2D" uid="uid://dju8c43n8olr6" path="res://sprites/spawner3.png" id="19_k57fn"]
+[ext_resource type="Texture2D" uid="uid://buist26qlpoyn" path="res://sprites/spawner4.png" id="20_ruhf7"]
+[ext_resource type="Texture2D" uid="uid://ykqvrseshkcp" path="res://sprites/spawner5.png" id="21_uxdp2"]
+[ext_resource type="Texture2D" uid="uid://d1b7lrgkcqgn7" path="res://sprites/spawner6.png" id="22_354ce"]
+[ext_resource type="Texture2D" uid="uid://dhm1c6wyeu2cq" path="res://sprites/spawner7.png" id="23_6dlic"]
+[ext_resource type="Texture2D" uid="uid://qresjsjls30q" path="res://sprites/spawner8.png" id="24_ok8c3"]
+[ext_resource type="Texture2D" uid="uid://n4r8ku4aau1k" path="res://sprites/spawner9.png" id="25_j3ph2"]
+[ext_resource type="Texture2D" uid="uid://cvp00fog642nu" path="res://sprites/spawner10.png" id="26_5q524"]
+[ext_resource type="Texture2D" uid="uid://bb520axuyadkv" path="res://sprites/spawner11.png" id="27_lpsj7"]
+[ext_resource type="Texture2D" uid="uid://p4gs8u65k8j6" path="res://sprites/spawner12.png" id="28_ni6xa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8yfef"]
 resource_local_to_scene = true
@@ -93,23 +105,128 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_i8qpe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_ara4c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_axmcw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_k57fn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_ruhf7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_uxdp2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_354ce")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_6dlic")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_ok8c3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_j3ph2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_5q524")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_lpsj7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_ni6xa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_ni6xa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_ni6xa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_ni6xa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_ni6xa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_ni6xa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_ni6xa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_ni6xa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_lpsj7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_5q524")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_j3ph2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_ok8c3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_6dlic")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_354ce")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_uxdp2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_ruhf7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_k57fn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_axmcw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_ara4c")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_t1qp0")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_8yfef")
 sprite_frames = SubResource("SpriteFrames_umsmd")
 frame_progress = 0.384095
 
 [node name="face" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(2, 4)
 sprite_frames = SubResource("SpriteFrames_xpuei")
 frame = 4
 
 [node name="cloth" type="AnimatedSprite2D" parent="."]
+visible = false
 sprite_frames = SubResource("SpriteFrames_3s7dq")
 
 [node name="hat" type="AnimatedSprite2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_xk1m8")
 sprite_frames = SubResource("SpriteFrames_ukw7o")
 frame = 3
@@ -118,6 +235,7 @@ frame = 3
 position = Vector2(6, 14)
 
 [node name="lbl_name" type="Label" parent="."]
+visible = false
 offset_left = -91.0
 offset_top = -59.0
 offset_right = 91.0
@@ -127,3 +245,13 @@ theme_override_colors/font_color = Color(100, 0, 0, 1)
 theme_override_fonts/font = ExtResource("16_jvu40")
 text = "....."
 horizontal_alignment = 1
+
+[node name="spawner" type="AnimatedSprite2D" parent="."]
+position = Vector2(-3, -412.5)
+scale = Vector2(2.09375, 3.4037)
+sprite_frames = SubResource("SpriteFrames_i8qpe")
+frame_progress = 0.0583182
+speed_scale = 5.0
+
+[connection signal="animation_looped" from="spawner" to="." method="_on_spawner_animation_looped"]
+[connection signal="frame_changed" from="spawner" to="." method="_on_spawner_frame_changed"]

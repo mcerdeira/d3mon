@@ -1,7 +1,8 @@
+Camera2D
+AnimatedSprite2D
 Timer
 CPUParticles2D
 GPUParticles2D
-AnimatedSprite2D
 Label
 CharacterBody2D
 Marker2D
