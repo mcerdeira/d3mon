@@ -42,8 +42,6 @@ func _process(delta):
 		where = original_where
 		speed = lerp(speed, speed_normal, 0.1)
 	
-	
-		
 	if hitted_ttl > 0:
 		hitted_ttl -= 1 * delta
 		$sprite.material.set_shader_parameter("hitted", 1)

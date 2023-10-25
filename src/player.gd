@@ -7,6 +7,7 @@ var bullet_obj = preload("res://bullet.tscn")
 var Blood = preload("res://Blood2.tscn")
 var speed = 100.0
 var ttl = 0
+var hit_color = Color(1, 0, 0)
 var current_color = null
 var my_name = ""
 var is_named = false
@@ -17,6 +18,7 @@ var bleeding_spawn_total = 1.0
 var bleeding_spawn = 0
 var spawning = true
 var health = 10
+var hitted_ttl = 0
 
 func _ready():
 	$sprite.visible = false
@@ -74,6 +76,14 @@ func _physics_process(delta):
 		return
 	
 	ttl -= 1 * delta
+	
+	if hitted_ttl > 0:
+		hitted_ttl -= 1 * delta
+		$sprite.material.set_shader_parameter("new", hit_color)
+		$hat.material.set_shader_parameter("new", hit_color)
+		if hitted_ttl <= 0:
+			$sprite.material.set_shader_parameter("new", current_color)
+			$hat.material.set_shader_parameter("new", current_color)
 	
 	if bleeding:
 		bleeding_spawn -= 1 * delta
@@ -164,5 +174,6 @@ func _on_spawner_frame_changed():
 		
 func _on_area_body_entered(body):
 	if body.is_in_group("enemies"):
+		hitted_ttl = 0.1
 		bleeding = true
 		health -= 1
