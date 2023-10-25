@@ -42,25 +42,27 @@ func _physics_process(delta):
 			send_command(0, "1:end")
 
 func spawn_enemy():
-	var count = enemy_count
-	var center = get_viewport_rect().size / 2
+	var enemy_instances = get_tree().get_nodes_in_group("enemies").size();
+	if enemy_instances <= 1000:
+		var count = enemy_count
+		var center = get_viewport_rect().size / 2
 
-	var step = 2 * PI / count
+		var step = 2 * PI / count
 
-	for i in range(count):
-		var spawn_pos = center + radius.rotated(step * i)
-		
-		spawn_pos.x += Global.pick_random(range(1, 100)) * Global.pick_random([1, -1])
-		spawn_pos.y += Global.pick_random(range(1, 100)) * Global.pick_random([1, -1])
+		for i in range(count):
+			var spawn_pos = center + radius.rotated(step * i)
+			
+			spawn_pos.x += Global.pick_random(range(1, 100)) * Global.pick_random([1, -1])
+			spawn_pos.y += Global.pick_random(range(1, 100)) * Global.pick_random([1, -1])
 
-		var node = enemu_obj.instantiate()
-		node.position = spawn_pos 
-		add_child(node)
-		
-	if spawn_swap == 0:
-		spawn_swap = 1
-	else:
-		spawn_swap = 0
+			var node = enemu_obj.instantiate()
+			node.position = spawn_pos 
+			add_child(node)
+			
+		if spawn_swap == 0:
+			spawn_swap = 1
+		else:
+			spawn_swap = 0
 
 func send_command(peer_id, message):
 	var msg = message.rsplit(":")

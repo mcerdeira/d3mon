@@ -2,7 +2,6 @@ res://server.tscn
 res://player.gdshader
 res://game.tscn
 res://Enemy.tscn
-res://Enemy.gd
-res://player.gd
 res://player.tscn
+res://Enemy.gd
 res://game.gd

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dwrd4qpshwym8"]
+[gd_scene load_steps=37 format=3 uid="uid://dwrd4qpshwym8"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_t1qp0"]
 [ext_resource type="Shader" path="res://player.gdshader" id="2_32ye7"]
@@ -206,40 +206,46 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_lv1rx"]
+radius = 19.0
+
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_t1qp0")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_8yfef")
+position = Vector2(0, -34)
 sprite_frames = SubResource("SpriteFrames_umsmd")
 frame_progress = 0.384095
 
 [node name="face" type="AnimatedSprite2D" parent="."]
 visible = false
-position = Vector2(2, 4)
+position = Vector2(2, -30)
 sprite_frames = SubResource("SpriteFrames_xpuei")
 frame = 4
 
 [node name="cloth" type="AnimatedSprite2D" parent="."]
 visible = false
+position = Vector2(0, -34)
 sprite_frames = SubResource("SpriteFrames_3s7dq")
 
 [node name="hat" type="AnimatedSprite2D" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_xk1m8")
+position = Vector2(0, -34)
 sprite_frames = SubResource("SpriteFrames_ukw7o")
 frame = 3
 
 [node name="shoot_pos" type="Marker2D" parent="."]
-position = Vector2(6, 14)
+position = Vector2(6, -20)
 
 [node name="lbl_name" type="Label" parent="."]
 visible = false
 offset_left = -91.0
-offset_top = -59.0
+offset_top = -93.0
 offset_right = 91.0
-offset_bottom = -40.0
+offset_bottom = -74.0
 pivot_offset = Vector2(91, 7)
 theme_override_colors/font_color = Color(100, 0, 0, 1)
 theme_override_fonts/font = ExtResource("16_jvu40")
@@ -247,11 +253,15 @@ text = "....."
 horizontal_alignment = 1
 
 [node name="spawner" type="AnimatedSprite2D" parent="."]
-position = Vector2(-3, -412.5)
+position = Vector2(-3, -446.5)
 scale = Vector2(2.09375, 3.4037)
 sprite_frames = SubResource("SpriteFrames_i8qpe")
 frame_progress = 0.0583182
 speed_scale = 5.0
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2(2, -28)
+shape = SubResource("CircleShape2D_lv1rx")
 
 [connection signal="animation_looped" from="spawner" to="." method="_on_spawner_animation_looped"]
 [connection signal="frame_changed" from="spawner" to="." method="_on_spawner_frame_changed"]
