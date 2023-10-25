@@ -8,3 +8,4 @@ res://game.gd
 res://bullet.tscn
 res://bullet.gd
 res://Enemy.gdshader
+res://player.gd

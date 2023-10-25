@@ -16,8 +16,15 @@ var bleeding_time = bleeding_time_total
 var bleeding_spawn_total = 1.0
 var bleeding_spawn = 0
 var spawning = true
+var health = 10
 
 func _ready():
+	$sprite.visible = false
+	$face.visible = false
+	$cloth.visible = false
+	$hat.visible = false
+	$lbl_name.visible = false
+	
 	$spawner.play("default")
 	add_to_group("players")
 	randomize()
@@ -125,6 +132,9 @@ func _physics_process(delta):
 		last_dir = player_command
 		position.x += speed * delta
 		scale.x = 1
+		
+	if health <= 0:
+		queue_free()
 	
 	$lbl_name.scale.x = scale.x
 			
@@ -152,3 +162,7 @@ func _on_spawner_frame_changed():
 		$cloth.visible = true
 		$hat.visible = true
 		
+func _on_area_body_entered(body):
+	if body.is_in_group("enemies"):
+		bleeding = true
+		health -= 1
