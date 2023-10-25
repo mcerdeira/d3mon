@@ -1,12 +1,18 @@
-[gd_scene load_steps=12 format=3 uid="uid://y5ehuuxwusy2"]
+[gd_scene load_steps=14 format=3 uid="uid://y5ehuuxwusy2"]
 
 [ext_resource type="Script" path="res://Enemy.gd" id="1_4w2vh"]
 [ext_resource type="Texture2D" uid="uid://bpdj47psq5inr" path="res://sprites/enemy_spr_0.png" id="1_woakx"]
 [ext_resource type="Texture2D" uid="uid://sjdmbvi6vwmu" path="res://sprites/enemy_spr_1.png" id="2_gl3j2"]
+[ext_resource type="Shader" path="res://Enemy.gdshader" id="2_h7yo5"]
 [ext_resource type="Texture2D" uid="uid://cdohg6pp22fxf" path="res://sprites/enemy_spr_2.png" id="3_klk6m"]
 [ext_resource type="Texture2D" uid="uid://6vm0fo28ovq8" path="res://sprites/enemy_anger_spr_0.png" id="4_bjdt1"]
 [ext_resource type="Texture2D" uid="uid://dcjw62uvuaeor" path="res://sprites/enemy_anger_spr_1.png" id="5_mjhnl"]
 [ext_resource type="Texture2D" uid="uid://uko6cdsr1u6n" path="res://sprites/enemy_anger_spr_2.png" id="6_02k6r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gd8p0"]
+resource_local_to_scene = true
+shader = ExtResource("2_h7yo5")
+shader_parameter/hitted = null
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ofeu1"]
 animations = [{
@@ -54,6 +60,7 @@ collision_mask = 2
 script = ExtResource("1_4w2vh")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_gd8p0")
 position = Vector2(-1, -28)
 sprite_frames = SubResource("SpriteFrames_ofeu1")
 frame_progress = 0.0597664

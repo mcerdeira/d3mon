@@ -9,6 +9,7 @@ var ttl = 0
 var framo = 0
 
 func _ready():
+	add_to_group("player_bullets")
 	var rand_desv = Global.pick_random([89, 24, 1, 3])
 	divisor += rand_desv
 	$sprite.stop()
@@ -75,3 +76,9 @@ func _physics_process(delta):
 			position.y += speed / divisor * delta
 		if desv == 2:
 			position.y -= speed / divisor * delta
+
+
+func _on_area_body_entered(body):
+	if body.is_in_group("enemies") and visible:
+		queue_free()
+		body.hited()

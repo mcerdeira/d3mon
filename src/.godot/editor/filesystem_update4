@@ -5,3 +5,6 @@ res://Enemy.tscn
 res://player.tscn
 res://Enemy.gd
 res://game.gd
+res://bullet.tscn
+res://bullet.gd
+res://Enemy.gdshader
