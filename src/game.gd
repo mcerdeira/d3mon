@@ -23,7 +23,7 @@ func _physics_process(delta):
 		spawn_enemy()
 	
 	if !local_player:
-		if Input.is_action_just_pressed("shoot"):
+		if Input.is_action_just_pressed("join"):
 			local_player = true
 			send_command(0, "1|Local_Player:join")
 	else:
