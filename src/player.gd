@@ -4,13 +4,21 @@ var player_id = -1
 var player_command = "end"
 var last_dir = "right"
 var bullet_obj = preload("res://bullet.tscn")
+var Blood = preload("res://Blood2.tscn")
 var speed = 100.0
 var ttl = 0
 var current_color = null
 var my_name = ""
 var is_named = false
+var bleeding = false
+var bleeding_time_total = 3.0
+var bleeding_time = bleeding_time_total
+var bleeding_spawn_total = 1.0
+var bleeding_spawn = 0
+var spawning = true
 
 func _ready():
+	$spawner.play("default")
 	add_to_group("players")
 	randomize()
 	current_color = Color(randf(), randf(), randf())
@@ -28,26 +36,50 @@ func send_command(command):
 	player_command = command
 	
 func send_action():
-	if ttl <= 0:
-		ttl = 0.1
-		var bullet = null
-		var ttls = [0.4, 0.3, 0.3]
-		var framos = [1, 0, 0]
-		for i in range(3):
-			bullet = bullet_obj.instantiate()
-			bullet.global_position =  $shoot_pos.global_position
-			bullet.player_command = last_dir
-			bullet.ttl = ttls[i]
-			bullet.desv = i
-			bullet.framo = framos[i]
-			get_parent().add_child(bullet)
+	if !spawning:
+		if ttl <= 0:
+			ttl = 0.1
+			var bullet = null
+			var ttls = [0.4, 0.3, 0.3]
+			var framos = [1, 0, 0]
+			for i in range(3):
+				bullet = bullet_obj.instantiate()
+				bullet.global_position =  $shoot_pos.global_position
+				bullet.player_command = last_dir
+				bullet.ttl = ttls[i]
+				bullet.desv = i
+				bullet.framo = framos[i]
+				get_parent().add_child(bullet)
+			
+func bleed():
+	for i in range(Global.pick_random([1, 2])):
+		var p = Blood.instantiate()
+		p.global_position = global_position
+		p.z_index = -9999
+		get_parent().add_child(p)
 		
 func _physics_process(delta):
 	if !is_named:
 		is_named = true
 		$lbl_name.text = my_name
+		
+	if spawning:
+		return
 	
 	ttl -= 1 * delta
+	
+	if bleeding:
+		bleeding_spawn -= 1 * delta
+		bleeding_time -= 1 * delta
+		if bleeding_spawn <= 0:
+			bleeding_spawn = bleeding_spawn_total
+			bleed()
+		
+		if bleeding_time <= 0:
+			bleeding = false
+			bleeding_spawn = 0
+			bleeding_time = bleeding_time_total
+	
 #
 #	target = (get_global_mouse_position() - self.global_position).normalized()
 #	velocity = target * speed
@@ -100,3 +132,23 @@ func _physics_process(delta):
 		$sprite.play("default")
 	else:
 		$sprite.stop()
+
+func _on_spawner_animation_looped():
+	spawning = false
+	$sprite.visible = true
+	$face.visible = true
+	$cloth.visible = true
+	$hat.visible = true
+	$lbl_name.visible = true
+	
+	$spawner.visible = false
+	$spawner.queue_free()
+
+
+func _on_spawner_frame_changed():
+	if $spawner.frame >= 20:
+		$sprite.visible = true
+		$face.visible = true
+		$cloth.visible = true
+		$hat.visible = true
+		

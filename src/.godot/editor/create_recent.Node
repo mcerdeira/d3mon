@@ -1,5 +1,9 @@
-Label
+Camera2D
 AnimatedSprite2D
+Timer
+CPUParticles2D
+GPUParticles2D
+Label
 CharacterBody2D
 Marker2D
 CollisionShape2D
