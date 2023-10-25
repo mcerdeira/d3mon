@@ -3,14 +3,8 @@
 [ext_resource type="Script" path="res://game.gd" id="1_noc6f"]
 
 [node name="Game" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_noc6f")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-z_index = -4096
-offset_left = -1427.0
-offset_top = -529.0
-offset_right = 3349.0
-offset_bottom = 2071.0
-
 [node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
+position = Vector2(576, 323)

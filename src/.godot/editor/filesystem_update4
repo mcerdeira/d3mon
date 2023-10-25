@@ -1,9 +1,8 @@
-res://game.tscn
-res://player.gdshader
-res://player.tscn
-res://player.gd
 res://server.tscn
-res://bullet.tscn
-res://Blood2.tscn
-res://Blood.gd
-res://spawner.gd
+res://player.gdshader
+res://game.tscn
+res://Enemy.tscn
+res://Enemy.gd
+res://player.gd
+res://player.tscn
+res://game.gd

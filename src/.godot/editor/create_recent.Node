@@ -1,11 +1,11 @@
-Camera2D
+CharacterBody2D
+Marker2D
 AnimatedSprite2D
+Camera2D
 Timer
 CPUParticles2D
 GPUParticles2D
 Label
-CharacterBody2D
-Marker2D
 CollisionShape2D
 Node
 RigidBody2D
