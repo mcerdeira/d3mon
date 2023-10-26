@@ -19,6 +19,7 @@ var bleeding_spawn = 0
 var spawning = true
 var health = 10
 var hitted_ttl = 0
+var dead = false
 
 func _ready():
 	$sprite.visible = false
@@ -30,7 +31,7 @@ func _ready():
 	$spawner.play("default")
 	add_to_group("players")
 	randomize()
-	current_color = Color(randf(), randf(), randf())
+	current_color = Global.get_random_color()
 	$sprite.material.set_shader_parameter("new", current_color)
 	$hat.material.set_shader_parameter("new", current_color)
 	set_random_frame($face)
@@ -143,7 +144,9 @@ func _physics_process(delta):
 		position.x += speed * delta
 		scale.x = 1
 		
-	if health <= 0:
+	if health <= 0 and !dead:
+		get_parent().zoom_out()
+		dead = true
 		queue_free()
 	
 	$lbl_name.scale.x = scale.x

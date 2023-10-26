@@ -1,74 +1,90 @@
 extends Node2D
 var player_obj = preload("res://player.tscn")
 var enemu_obj = preload("res://Enemy.tscn")
-var local_player = false
-var enemy_spawn_ttl_total = 5
+var local_player = 0
 var enemy_spawn_ttl = 0
 var spawn_swap = 0
 var radius = Vector2(650, 0)
 var enemy_count = 30
 
+func zoom_in():
+	Global.ENEMY_SPAWN_VEL += 0.5
+	Global.ENEMY_SPEED_BASE += 1
+	$Camera2D.zoom -= Vector2(0.05, 0.05) 
+	enemy_count += 10
+	radius += Vector2(100, 0)
+	spawn_enemy()
+	radius += Vector2(100, 0)
+	spawn_enemy()
+	
+func zoom_out():
+	Global.ENEMY_SPAWN_VEL -= 0.5
+	Global.ENEMY_SPEED_BASE -= 1
+	$Camera2D.zoom += Vector2(0.05, 0.05) 
+	enemy_count -= 10
+	radius -= Vector2(100, 0)
+	radius -= Vector2(100, 0)
+
 func _physics_process(delta):
-	if Input.is_action_just_pressed("zoom"):
-		$Camera2D.zoom -= Vector2(0.05, 0.05) 
-		enemy_count += 10
-		radius += Vector2(100, 0)
-		spawn_enemy()
-		radius += Vector2(100, 0)
-		spawn_enemy()
+	var players_count = get_tree().get_nodes_in_group("players").size()
 	
-	enemy_spawn_ttl -= 1 * delta
-	if enemy_spawn_ttl <= 0:
-		enemy_spawn_ttl = enemy_spawn_ttl_total
-		spawn_enemy()
+	Global.GAME_OVER = (players_count == 0)
 	
-	if !local_player:
-		if Input.is_action_just_pressed("join"):
-			local_player = true
-			send_command(0, "1|Local_Player:join")
-	else:
-		if Input.is_action_pressed("shoot"):
-			send_command(0, "1:a") 
-		if Input.is_action_pressed("down"):
-			send_command(0, "1:down") 
-		if Input.is_action_pressed("up"):
-			send_command(0, "1:up") 
-		if Input.is_action_pressed("left"):
-			send_command(0, "1:left") 
-		if Input.is_action_pressed("right"):
-			send_command(0, "1:right")
-			
-		if Input.is_action_just_released("down") or Input.is_action_just_released("up") or Input.is_action_just_released("left") or Input.is_action_just_released("right"):
-			send_command(0, "1:end")
+	if !Global.GAME_OVER:
+		enemy_spawn_ttl -= 1 * delta
+		if enemy_spawn_ttl <= 0:
+			enemy_spawn_ttl = Global.ENEMY_SPAWN_VEL
+			spawn_enemy()
+	
+	if Input.is_action_just_pressed("join"):
+		local_player += 1
+		var player_name = "Local_" + str(local_player) 
+		send_command(0, str(local_player) + "|" + player_name + ":join")
+	if Input.is_action_pressed("shoot"):
+		send_command(0, str(local_player) + ":a") 
+	if Input.is_action_pressed("down"):
+		send_command(0, str(local_player) + ":down") 
+	if Input.is_action_pressed("up"):
+		send_command(0, str(local_player) + ":up") 
+	if Input.is_action_pressed("left"):
+		send_command(0, str(local_player) + ":left") 
+	if Input.is_action_pressed("right"):
+		send_command(0, str(local_player) + ":right")
+		
+	if Input.is_action_just_released("down") or Input.is_action_just_released("up") or Input.is_action_just_released("left") or Input.is_action_just_released("right"):
+		send_command(0, str(local_player) + ":end")
 
 func spawn_enemy():
-	var enemy_instances = get_tree().get_nodes_in_group("enemies").size();
-	if enemy_instances <= 1000:
-		var count = enemy_count
-		var center = get_viewport_rect().size / 2
+	if !Global.GAME_OVER:
+		var enemy_instances = get_tree().get_nodes_in_group("enemies").size();
+		if enemy_instances <= 1000:
+			var count = enemy_count
+			var center = get_viewport_rect().size / 2
 
-		var step = 2 * PI / count
+			var step = 2 * PI / count
 
-		for i in range(count):
-			var spawn_pos = center + radius.rotated(step * i)
-			
-			spawn_pos.x += Global.pick_random(range(1, 100)) * Global.pick_random([1, -1])
-			spawn_pos.y += Global.pick_random(range(1, 100)) * Global.pick_random([1, -1])
+			for i in range(count):
+				var spawn_pos = center + radius.rotated(step * i)
+				
+				spawn_pos.x += Global.pick_random(range(1, 100)) * Global.pick_random([1, -1])
+				spawn_pos.y += Global.pick_random(range(1, 100)) * Global.pick_random([1, -1])
 
-			var node = enemu_obj.instantiate()
-			node.position = spawn_pos 
-			add_child(node)
-			
-		if spawn_swap == 0:
-			spawn_swap = 1
-		else:
-			spawn_swap = 0
+				var node = enemu_obj.instantiate()
+				node.position = spawn_pos 
+				add_child(node)
+				
+			if spawn_swap == 0:
+				spawn_swap = 1
+			else:
+				spawn_swap = 0
 
 func send_command(peer_id, message):
 	var msg = message.rsplit(":")
+	var real_command = ""
 	var id = msg[0]
 	var my_name = ""
 	var command = msg[1]
+	real_command = command
 	if command == "none":
 		command = "end"
 		
@@ -79,7 +95,7 @@ func send_command(peer_id, message):
 		my_name = msg2[1]
 
 	var is_dir = is_direction(command)
-	var player = add_player(id, my_name)
+	var player = add_player(id, my_name, real_command)
 		
 	if player:
 		if is_dir:
@@ -95,9 +111,10 @@ func remove_player(id):
 	if player:
 		player.queue_free()
 	
-func add_player(id, my_name):
+func add_player(id, my_name, command):
 	var player = find_player_by_id(id)
-	if !player:
+	if !player and command == "join":
+		zoom_in()
 		player = player_obj.instantiate()
 		player.position.x = 600
 		player.position.y = 300

@@ -33,7 +33,7 @@
 resource_local_to_scene = true
 shader = ExtResource("2_32ye7")
 shader_parameter/origin = Color(1, 0, 1, 1)
-shader_parameter/new = Color(0.827451, 0.137255, 0.0509804, 1)
+shader_parameter/new = Color(0.796078, 0, 0.545098, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_umsmd"]
 animations = [{
@@ -78,6 +78,7 @@ animations = [{
 [sub_resource type="SpriteFrames" id="SpriteFrames_3s7dq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xk1m8"]
+resource_local_to_scene = true
 shader = ExtResource("2_32ye7")
 shader_parameter/origin = Color(1, 0, 1, 1)
 shader_parameter/new = null

@@ -1,5 +1,24 @@
 extends Node
 var SfxMuted = false
+var GAME_OVER = true
+var ENEMY_SPEED_BASE = 0.0
+var ENEMY_SPAWN_VEL = 5.0
+var COLORS = [
+	Color8(66, 135, 245),
+	Color8(245, 185, 66),
+	Color8(242, 245, 66),
+	Color8(66, 245, 87),
+	Color8(66, 245, 239),
+	Color8(66, 117, 245),
+	Color8(69, 66, 245),
+	Color8(179, 66, 245),
+	Color8(245, 66, 164),
+	Color8(255, 255, 255),
+	Color8(34, 54, 225),
+]
+
+func get_random_color():
+	return pick_random(COLORS)
 
 func pick_random(container):
 	if typeof(container) == TYPE_DICTIONARY:

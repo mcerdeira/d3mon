@@ -1,8 +1,9 @@
-res://Enemy.tscn
+res://server.tscn
 res://player.gdshader
 res://Enemy.gdshader
-res://game.gd
-res://server.tscn
 res://game.tscn
 res://bullet.tscn
 res://player.tscn
+res://player.gd
+res://scripts/Global.gd
+res://game.gd

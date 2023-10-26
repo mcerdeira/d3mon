@@ -1,7 +1,7 @@
 extends CharacterBody2D
 var Blood = preload("res://Blood2.tscn")
-var speed_chase = 35.0
-var speed_normal = 10.0
+var speed_chase = 35.0 + Global.ENEMY_SPEED_BASE
+var speed_normal = 10.0 + Global.ENEMY_SPEED_BASE
 var speed = speed_normal
 var player_where = null
 var where = null
@@ -22,6 +22,12 @@ func _ready():
 	$face.play("default")
 
 func _process(delta):
+	if Global.GAME_OVER:
+		queue_free()
+	
+	speed_chase = 35.0 + Global.ENEMY_SPEED_BASE
+	speed_normal = 10.0 + Global.ENEMY_SPEED_BASE
+	
 	if bleeding:
 		bleeding_spawn -= 1 * delta
 		bleeding_time -= 1 * delta
