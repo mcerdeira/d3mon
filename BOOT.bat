@@ -7,7 +7,10 @@ echo REACT_APP_LOCAL_IP=%ip% > .\proxy-gamepad\web-gamepad\.env
 echo on 
 echo %ip%
 echo off
-pause
 
+timeout 3
+
+start .\d3mon\d3mon.exe
+timeout 3
 start "" npm --prefix .\proxy-gamepad\web-gamepad\ run start 
 start "" node .\proxy-gamepad\service\service.js
