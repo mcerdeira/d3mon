@@ -26,12 +26,24 @@ offset_bottom = 831.0
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("3_6o8ju")
 
+[node name="game_over2" type="Label" parent="CanvasLayer"]
+offset_left = -2.0
+offset_top = 8.0
+offset_right = 1158.0
+offset_bottom = 649.0
+theme_override_colors/font_color = Color(0.596078, 0, 0.729412, 1)
+theme_override_fonts/font = ExtResource("2_p3ubr")
+theme_override_font_sizes/font_size = 84
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="game_over" type="Label" parent="CanvasLayer"]
 offset_left = -2.0
 offset_top = 2.0
 offset_right = 1158.0
 offset_bottom = 643.0
-theme_override_colors/font_color = Color(0.356863, 0, 0.305882, 1)
+theme_override_colors/font_color = Color(0.882353, 0, 0.305882, 1)
 theme_override_fonts/font = ExtResource("2_p3ubr")
 theme_override_font_sizes/font_size = 84
 text = "GAME OVER"
