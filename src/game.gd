@@ -6,6 +6,7 @@ var enemy_spawn_ttl = 0
 var spawn_swap = 0
 var radius = Vector2(650, 0)
 var enemy_count = 30
+var ENEMY_MAX = 700
 
 func zoom_in():
 	Global.ENEMY_SPAWN_VEL += 0.5
@@ -57,7 +58,7 @@ func _physics_process(delta):
 func spawn_enemy():
 	if !Global.GAME_OVER:
 		var enemy_instances = get_tree().get_nodes_in_group("enemies").size();
-		if enemy_instances <= 1000:
+		if enemy_instances <= ENEMY_MAX:
 			var count = enemy_count
 			var center = get_viewport_rect().size / 2
 

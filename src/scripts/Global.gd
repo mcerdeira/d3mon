@@ -1,4 +1,5 @@
 extends Node
+var shaker_obj = null
 var SfxMuted = false
 var GAME_OVER = true
 var ENEMY_SPEED_BASE = 0.0

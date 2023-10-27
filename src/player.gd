@@ -1,4 +1,5 @@
 extends CharacterBody2D
+var already_shake = false
 var global_delta = 0.1
 var player_id = -1
 var player_command = "end"
@@ -163,12 +164,16 @@ func _on_spawner_animation_looped():
 	$cloth.visible = true
 	$hat.visible = true
 	$lbl_name.visible = true
-	
 	$spawner.visible = false
 	$spawner.queue_free()
-
+	$SpawnKiller.killemall()
 
 func _on_spawner_frame_changed():
+	if $spawner.frame >= 7:
+		if !already_shake:
+			already_shake = true
+			Global.shaker_obj.shake(50, 2.1)
+	
 	if $spawner.frame >= 20:
 		$sprite.visible = true
 		$face.visible = true
@@ -176,7 +181,8 @@ func _on_spawner_frame_changed():
 		$hat.visible = true
 		
 func _on_area_body_entered(body):
-	if body.is_in_group("enemies"):
+	if body.is_in_group("enemies") and !spawning:
+		body.stop_hit()
 		hitted_ttl = 0.1
 		bleeding = true
 		health -= 1

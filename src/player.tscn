@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dwrd4qpshwym8"]
+[gd_scene load_steps=40 format=3 uid="uid://dwrd4qpshwym8"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_t1qp0"]
 [ext_resource type="Shader" path="res://player.gdshader" id="2_32ye7"]
@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://cvp00fog642nu" path="res://sprites/spawner10.png" id="26_5q524"]
 [ext_resource type="Texture2D" uid="uid://bb520axuyadkv" path="res://sprites/spawner11.png" id="27_lpsj7"]
 [ext_resource type="Texture2D" uid="uid://p4gs8u65k8j6" path="res://sprites/spawner12.png" id="28_ni6xa"]
+[ext_resource type="Script" path="res://SpawnKiller.gd" id="29_udjrq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8yfef"]
 resource_local_to_scene = true
@@ -213,6 +214,9 @@ radius = 16.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_lv1rx"]
 radius = 11.0454
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_rqxnv"]
+radius = 197.023
+
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_t1qp0")
 
@@ -255,7 +259,6 @@ horizontal_alignment = 1
 position = Vector2(-3, -446.5)
 scale = Vector2(2.09375, 3.4037)
 sprite_frames = SubResource("SpriteFrames_i8qpe")
-frame_progress = 0.0583182
 speed_scale = 5.0
 
 [node name="collider" type="CollisionShape2D" parent="."]
@@ -269,6 +272,15 @@ collision_mask = 2
 [node name="collider" type="CollisionShape2D" parent="area"]
 position = Vector2(2, -28)
 shape = SubResource("CircleShape2D_lv1rx")
+
+[node name="SpawnKiller" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("29_udjrq")
+
+[node name="collider" type="CollisionShape2D" parent="SpawnKiller"]
+position = Vector2(6, -15)
+shape = SubResource("CircleShape2D_rqxnv")
 
 [connection signal="animation_looped" from="spawner" to="." method="_on_spawner_animation_looped"]
 [connection signal="frame_changed" from="spawner" to="." method="_on_spawner_frame_changed"]
