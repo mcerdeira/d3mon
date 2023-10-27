@@ -65,7 +65,7 @@ export const TouchPad = (props) => {
                 }
             }
             // fire callback function with params dir="left|right|up|down", phase="end", swipetype=dir etc:
-            handletouch(e, dir, 'end', swipeType, (dir =='left' || dir =='right')? distX : distY, -1)
+            handletouch(e, 'end', 'end', swipeType, (dir =='left' || dir =='right')? distX : distY, -1)
             e.preventDefault()
         }, false)
         
@@ -117,7 +117,7 @@ export const TouchPad = (props) => {
                     }
                 }
                 // fire callback function with params dir="left|right|up|down", phase="end", swipetype=dir etc:
-                handletouch(e, dir, 'end', swipeType, (dir =='left' || dir =='right')? distX : distY, -1)
+                handletouch(e, "end", 'end', swipeType, (dir =='left' || dir =='right')? distX : distY, -1)
                 mouseisdown = false
                 e.preventDefault()
             }
