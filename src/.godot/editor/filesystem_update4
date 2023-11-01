@@ -1,9 +1,10 @@
-res://game.tscn
+res://Blood2.tscn
 res://player.gdshader
 res://Enemy.gdshader
 res://game.gdshader
+res://Blood.gd
 res://server.tscn
+res://game.tscn
 res://bullet.tscn
 res://player.tscn
 res://Enemy.tscn
-res://CanvasLayer.gd

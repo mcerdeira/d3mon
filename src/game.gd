@@ -7,11 +7,15 @@ var spawn_swap = 0
 var radius = Vector2(650, 0)
 var enemy_count = 30
 var ENEMY_MAX = 700
+var camera_zoom = 0.8
+
+func _ready():
+	Music.play(Global.MainTheme)
 
 func zoom_in():
 	Global.ENEMY_SPAWN_VEL += 0.5
 	Global.ENEMY_SPEED_BASE += 1
-	$Camera2D.zoom -= Vector2(0.05, 0.05) 
+	camera_zoom -= 0.05
 	enemy_count += 10
 	radius += Vector2(100, 0)
 	spawn_enemy()
@@ -21,7 +25,7 @@ func zoom_in():
 func zoom_out():
 	Global.ENEMY_SPAWN_VEL -= 0.5
 	Global.ENEMY_SPEED_BASE -= 1
-	$Camera2D.zoom += Vector2(0.05, 0.05) 
+	camera_zoom += 0.05
 	enemy_count -= 10
 	radius -= Vector2(100, 0)
 	radius -= Vector2(100, 0)
@@ -30,6 +34,8 @@ func _physics_process(delta):
 	var players_count = get_tree().get_nodes_in_group("players").size()
 	
 	Global.GAME_OVER = (players_count == 0)
+	
+	$Camera2D.zoom = lerp($Camera2D.zoom, Vector2(camera_zoom, camera_zoom), 0.07)
 	
 	if !Global.GAME_OVER:
 		enemy_spawn_ttl -= 1 * delta

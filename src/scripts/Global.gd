@@ -4,6 +4,7 @@ var SfxMuted = false
 var GAME_OVER = true
 var ENEMY_SPEED_BASE = 0.0
 var ENEMY_SPAWN_VEL = 5.0
+var MainTheme = "res://music/Electric Callboy - WE GOT THE MOVES (OFFICIAL VIDEO).mp3"
 var COLORS = [
 	Color8(66, 135, 245),
 	Color8(245, 185, 66),

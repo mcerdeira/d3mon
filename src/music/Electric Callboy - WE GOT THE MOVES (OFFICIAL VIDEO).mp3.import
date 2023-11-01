@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://df1i4d8c3qt7y"
+path="res://.godot/imported/Electric Callboy - WE GOT THE MOVES (OFFICIAL VIDEO).mp3-d9a927e381b92a6461f4d999bf757cff.mp3str"
+
+[deps]
+
+source_file="res://music/Electric Callboy - WE GOT THE MOVES (OFFICIAL VIDEO).mp3"
+dest_files=["res://.godot/imported/Electric Callboy - WE GOT THE MOVES (OFFICIAL VIDEO).mp3-d9a927e381b92a6461f4d999bf757cff.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
