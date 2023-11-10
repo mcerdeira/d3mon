@@ -7,6 +7,8 @@ var desv = 0
 var divisor = 5
 var ttl = 0
 var framo = 0
+var origin_player = null
+var level = 0
 
 func _ready():
 	add_to_group("player_bullets")
@@ -80,5 +82,8 @@ func _physics_process(delta):
 
 func _on_area_body_entered(body):
 	if body.is_in_group("enemies") and visible:
+		if body.hited(level):
+			if origin_player and is_instance_valid(origin_player):
+				origin_player.add_xp()
+				
 		queue_free()
-		body.hited()

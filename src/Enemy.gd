@@ -6,7 +6,7 @@ var speed = speed_normal
 var player_where = null
 var where = null
 var original_where = null
-var health = 10
+var health = 15
 var hitted_ttl = 0
 var bleeding = false
 var bleeding_time_total = 3.0
@@ -95,11 +95,15 @@ func hitkill():
 	health = 0
 	hitted_ttl = 0.1
 
-func hited():
+func hited(dmg):
 	speed = 0.0
 	bleeding = true
-	health -= 1
+	health -= dmg
 	hitted_ttl = 0.1
+	if health <= 0:
+		return true
+	else:
+		return false
 
 func _on_area_attract_body_entered(body):
 	if player_where == null and body.is_in_group("players"):

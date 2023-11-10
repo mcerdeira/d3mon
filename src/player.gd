@@ -18,9 +18,11 @@ var bleeding_time = bleeding_time_total
 var bleeding_spawn_total = 1.0
 var bleeding_spawn = 0
 var spawning = true
-var health = 10
 var hitted_ttl = 0
 var dead = false
+var level = 1
+var xp = 0
+var next_xp = 2
 
 func _ready():
 	$sprite.visible = false
@@ -38,6 +40,20 @@ func _ready():
 	set_random_frame($face)
 	set_random_frame($hat)
 	
+func add_xp():
+	xp += 1
+	if xp >= next_xp:
+		level_up()
+	
+func level_up():
+	level += 1
+	xp = 0
+	next_xp += (level * 3)
+	set_player_name()
+	
+func set_player_name():
+	$lbl_name.text = my_name + "(lvl " + str(level) + ")"
+	
 func set_random_frame(sprite):
 	randomize()
 	var f = randi() % sprite.get_sprite_frames().get_frame_count("default")
@@ -51,15 +67,22 @@ func send_action():
 		if ttl <= 0:
 			ttl = 0.1
 			var bullet = null
-			var ttls = [0.4, 0.3, 0.3]
+			var ttls = [0.3, 0.2, 0.2]
+			if level >= 3:
+				ttls = [0.3 + (level * 0.1), 0.2 + (level * 0.1), 0.2 + (level * 0.1)]
+				
 			var framos = [1, 0, 0]
-			for i in range(3):
+			var count = min(level, 3)
+			
+			for i in range(count):
 				bullet = bullet_obj.instantiate()
 				bullet.global_position =  $shoot_pos.global_position
 				bullet.player_command = last_dir
 				bullet.ttl = ttls[i]
 				bullet.desv = i
 				bullet.framo = framos[i]
+				bullet.origin_player = self
+				bullet.level = level
 				get_parent().add_child(bullet)
 			
 func bleed():
@@ -69,15 +92,17 @@ func bleed():
 		p.z_index = -9999
 		get_parent().add_child(p)
 		
-func _physics_process(delta):
+func _physics_process(delta):	
 	if !is_named:
 		is_named = true
-		$lbl_name.text = my_name
+		set_player_name()
 		
 	if spawning:
 		return
 	
 	ttl -= 1 * delta
+	
+	send_action()
 	
 	if hitted_ttl > 0:
 		hitted_ttl -= 1 * delta
@@ -145,7 +170,7 @@ func _physics_process(delta):
 		position.x += speed * delta
 		scale.x = 1
 		
-	if health <= 0 and !dead:
+	if level <= 0 and !dead:
 		get_parent().zoom_out()
 		dead = true
 		queue_free()
@@ -181,8 +206,8 @@ func _on_spawner_frame_changed():
 		$hat.visible = true
 		
 func _on_area_body_entered(body):
-	if body.is_in_group("enemies") and !spawning:
+	if hitted_ttl <= 0 and body.is_in_group("enemies") and !spawning:
 		body.stop_hit()
-		hitted_ttl = 0.1
+		hitted_ttl = 2.1
 		bleeding = true
-		health -= 1
+		level -= 1
