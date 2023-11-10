@@ -211,3 +211,4 @@ func _on_area_body_entered(body):
 		hitted_ttl = 2.1
 		bleeding = true
 		level -= 1
+		set_player_name()

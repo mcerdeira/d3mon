@@ -6,7 +6,7 @@ var enemy_spawn_ttl = 0
 var spawn_swap = 0
 var radius = Vector2(650, 0)
 var enemy_count = 30
-var ENEMY_MAX = 700
+var ENEMY_MAX = 400
 var camera_zoom = 0.8
 
 func _ready():
