@@ -1,5 +1,6 @@
 extends CharacterBody2D
 var Blood = preload("res://Blood2.tscn")
+var score_obj = preload("res://Score.tscn")
 var speed_chase = 35.0 + Global.ENEMY_SPEED_BASE
 var speed_normal = 10.0 + Global.ENEMY_SPEED_BASE
 var speed = speed_normal
@@ -63,6 +64,7 @@ func _process(delta):
 	if health <= 0:
 		bleed(10)
 		queue_free()
+		score_me()
 		return
 	
 	var direction = global_position.direction_to(where)
@@ -75,6 +77,12 @@ func _process(delta):
 		$sprite.scale.x = -1
 		$face.scale.x = -1
 		
+
+func score_me():
+	var scor = score_obj.instantiate()
+	scor.global_position =  global_position
+	scor.set_as_top_level(true)
+	get_parent().add_child(scor)
 
 func bleed(count=0):
 	if count == 0:

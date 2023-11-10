@@ -66,6 +66,32 @@ func set_random_frame(sprite):
 func send_command(command):
 	player_command = command
 	
+func reverse(dir):
+	if dir == "leftup":
+		return "rightdown"
+		
+	if dir == "rightup":
+		return "leftdown"
+		
+	if dir == "leftdown":
+		return "rightup"
+
+	if dir == "rightdown":
+		return "leftup"
+	
+	if dir == "up":
+		return "down"
+
+	if dir == "down":
+		return "up"
+
+	if dir == "left":
+		return "right"
+
+	if dir == "right":
+		return "left"
+
+	
 func send_action():
 	if !spawning:
 		if ttl <= 0:
@@ -77,7 +103,6 @@ func send_action():
 				
 			var framos = [1, 0, 0]
 			var count = min(level, 3)
-			
 			for i in range(count):
 				bullet = bullet_obj.instantiate()
 				bullet.global_position =  $shoot_pos.global_position
@@ -88,6 +113,20 @@ func send_action():
 				bullet.origin_player = self
 				bullet.level = level
 				get_parent().add_child(bullet)
+				
+			if level >= 5:
+				var c_count = level - 4
+				count = min(c_count, 3)
+				for i in range(count):
+					bullet = bullet_obj.instantiate()
+					bullet.global_position =  $shoot_pos.global_position
+					bullet.player_command = reverse(last_dir)
+					bullet.ttl = ttls[i]
+					bullet.desv = i
+					bullet.framo = framos[i]
+					bullet.origin_player = self
+					bullet.level = level
+					get_parent().add_child(bullet)
 			
 func bleed():
 	for i in range(Global.pick_random([1, 2])):

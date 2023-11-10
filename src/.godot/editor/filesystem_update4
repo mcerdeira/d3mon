@@ -9,3 +9,6 @@ res://bullet.tscn
 res://Enemy.tscn
 res://Blood2.tscn
 res://player.gd
+res://Score.tscn
+res://Score.gd
+res://Enemy.gd
