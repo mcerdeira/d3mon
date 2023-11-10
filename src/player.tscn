@@ -255,6 +255,17 @@ theme_override_fonts/font = ExtResource("16_jvu40")
 text = "....."
 horizontal_alignment = 1
 
+[node name="lbl_lvl" type="Label" parent="."]
+offset_left = -91.0
+offset_top = 11.0
+offset_right = 91.0
+offset_bottom = 30.0
+pivot_offset = Vector2(91, 7)
+theme_override_colors/font_color = Color(100, 0, 0, 1)
+theme_override_fonts/font = ExtResource("16_jvu40")
+text = "....."
+horizontal_alignment = 1
+
 [node name="spawner" type="AnimatedSprite2D" parent="."]
 position = Vector2(-3, -446.5)
 scale = Vector2(2.09375, 3.4037)

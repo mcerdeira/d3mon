@@ -30,6 +30,7 @@ func _ready():
 	$cloth.visible = false
 	$hat.visible = false
 	$lbl_name.visible = false
+	$lbl_lvl.visible = false
 	
 	$spawner.play("default")
 	add_to_group("players")
@@ -52,7 +53,10 @@ func level_up():
 	set_player_name()
 	
 func set_player_name():
-	$lbl_name.text = my_name + "(lvl " + str(level) + ")"
+	$lbl_name.text = my_name 
+	$lbl_lvl.text = "(lvl " + str(level) + ")"
+	$lbl_name.set("theme_override_colors/font_color", current_color)
+	$lbl_lvl.set("theme_override_colors/font_color", current_color)
 	
 func set_random_frame(sprite):
 	randomize()
@@ -176,6 +180,7 @@ func _physics_process(delta):
 		queue_free()
 	
 	$lbl_name.scale.x = scale.x
+	$lbl_lvl.scale.x = scale.x
 			
 	if is_moving:
 		$sprite.play("default")
@@ -189,6 +194,7 @@ func _on_spawner_animation_looped():
 	$cloth.visible = true
 	$hat.visible = true
 	$lbl_name.visible = true
+	$lbl_lvl.visible = true
 	$spawner.visible = false
 	$spawner.queue_free()
 	$SpawnKiller.killemall()

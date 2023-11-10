@@ -45,7 +45,7 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("join"):
 		local_player += 1
-		var player_name = "Local_" + str(local_player) 
+		var player_name = "P" + str(local_player) 
 		send_command(0, str(local_player) + "|" + player_name + ":join")
 	if Input.is_action_pressed("shoot"):
 		send_command(0, str(local_player) + ":a") 
