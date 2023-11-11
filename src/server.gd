@@ -12,18 +12,17 @@ func info(msg):
 	print(msg)
 	_log_dest.add_text(str(msg) + "\n")
 
-
 # Server signals
 func _on_web_socket_server_client_connected(peer_id):
 	var peer: WebSocketPeer = _server.peers[peer_id]
-	info("Remote client connected: %d. Protocol: %s" % [peer_id, peer.get_selected_protocol()])
+	#info("Remote client connected: %d. Protocol: %s" % [peer_id, peer.get_selected_protocol()])
 
 func _on_web_socket_server_client_disconnected(peer_id):
 	var peer: WebSocketPeer = _server.peers[peer_id]
-	info("Remote client disconnected: %d. Code: %d, Reason: %s" % [peer_id, peer.get_close_code(), peer.get_close_reason()])
+	#info("Remote client disconnected: %d. Code: %d, Reason: %s" % [peer_id, peer.get_close_code(), peer.get_close_reason()])
 
 func _on_web_socket_server_message_received(peer_id, message):
-	info("Server received data from peer %d: %s" % [peer_id, message])
+	#info("Server received data from peer %d: %s" % [peer_id, message])
 	#_server.send(-peer_id, "[%d] Says: %s" % [peer_id, message])
 	$Game.send_command(peer_id, message)
 

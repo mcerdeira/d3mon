@@ -70,8 +70,6 @@ function App() {
       <body>
         <div className='center'>{nameSelected}</div>
         <TouchPad className="button" playerid={playerid} nameselected={nameSelected}></TouchPad>
-        <PlaceHolder className="cross_place" id="dum" name="↑"/>
-        <Button className="button" id="a" playerid={playerid} nameselected={nameSelected} name="!"/>
         <div></div>
       </body>
       :

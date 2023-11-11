@@ -22,7 +22,7 @@ var hitted_ttl = 0
 var dead = false
 var level = 1
 var xp = 0
-var next_xp = 2
+var next_xp = 3
 
 func _ready():
 	$sprite.visible = false
@@ -49,7 +49,7 @@ func add_xp():
 func level_up():
 	level += 1
 	xp = 0
-	next_xp += (level * 3)
+	next_xp += (level * 4)
 	set_player_name()
 	
 func set_player_name():
@@ -115,8 +115,12 @@ func send_action():
 				get_parent().add_child(bullet)
 				
 			if level >= 5:
-				var c_count = level - 4
-				count = min(c_count, 3)
+				var c_level = level - 4
+				ttls = [0.3, 0.2, 0.2]
+				if c_level >= 3:
+					ttls = [0.3 + (c_level * 0.1), 0.2 + (c_level * 0.1), 0.2 + (c_level * 0.1)]
+				
+				count = min(c_level, 3)
 				for i in range(count):
 					bullet = bullet_obj.instantiate()
 					bullet.global_position =  $shoot_pos.global_position
@@ -125,7 +129,7 @@ func send_action():
 					bullet.desv = i
 					bullet.framo = framos[i]
 					bullet.origin_player = self
-					bullet.level = level
+					bullet.level = c_level
 					get_parent().add_child(bullet)
 			
 func bleed():

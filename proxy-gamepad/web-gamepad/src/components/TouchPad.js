@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
+var lastCommand = "";
+
 export const TouchPad = (props) => {
 
     function ontouch(el, callback){
@@ -15,7 +17,7 @@ export const TouchPad = (props) => {
                 distY,
                 threshold = 150,
                 restraint = 100,
-                allowedTime = 500,
+                allowedTime = 50,
                 elapsedTime,
                 startTime,
                 mouseisdown = false,
@@ -144,7 +146,10 @@ export const TouchPad = (props) => {
             let id = props.playerid;
             let url = `http://${process.env.REACT_APP_LOCAL_IP}:8001/${command}/${id}`
             try {
-              fetch(url);
+                if(lastCommand != command){
+                    lastCommand = command;
+                    fetch(url);
+                }
             } catch (error) {
               return 0;
             }
