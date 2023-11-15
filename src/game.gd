@@ -62,7 +62,6 @@ func _physics_process(delta):
 		send_command(0, str(local_player) + ":end")
 
 func spawn_enemy():
-	return 0
 	if !Global.GAME_OVER:
 		var enemy_instances = get_tree().get_nodes_in_group("enemies").size();
 		if enemy_instances <= ENEMY_MAX:
@@ -104,8 +103,6 @@ func send_command(peer_id, message):
 
 	var is_dir = is_direction(command)
 	var player = add_player(id, my_name, real_command)
-	
-	print(command)
 		
 	if player:
 		if is_dir:
